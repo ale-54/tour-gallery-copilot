@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'; // Import React hooks
-import reactLogo from './assets/react.svg'; // Import React logo
-import viteLogo from '/vite.svg'; // Import Vite logo
 import './App.css'; // Import CSS for styling
 import Gallery from './components/Gallery'; // Import the Gallery component
 
@@ -17,7 +15,7 @@ function App() {
     setLoading(true); // Set loading to true before fetching
     try {
       // Fetch data from the API
-      const response = await fetch('https://course-api.com/react-tours-project');
+      const response = await fetch('https://api.allorigins.win/raw?url=https://course-api.com/react-tours-project');
       if (!response.ok) {
         throw new Error('Failed to fetch tours'); // Throw error if response is not OK
       }
@@ -61,16 +59,7 @@ function App() {
   // Else, render Gallery with tour data
   return (
     <>
-      {/* Header section with Vite and React logos */}
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>Tour Gallery</h1>
 
       {/* Render the Gallery component */}
       <div className="card">
@@ -80,11 +69,6 @@ function App() {
           onRemove={(id) => setTours(tours.filter((tour) => tour.id !== id))} // Remove tour from state
         />
       </div>
-
-      {/* Footer section with a note */}
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
