@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'; // Import React hooks
 import reactLogo from './assets/react.svg'; // Import React logo
 import viteLogo from '/vite.svg'; // Import Vite logo
 import './App.css'; // Import CSS for styling
+import Gallery from './components/Gallery'; // Import the Gallery component
 
 function App() {
   // State to store the list of tours
@@ -34,17 +35,17 @@ function App() {
     fetchTours(); // Call the fetch function
   }, []); // Empty dependency array ensures this runs only once on mount
 
-  // Display a loading message while data is being fetched
+  // If loading is true, display "Loading..."
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
-  // Display an error message if there was an issue fetching data
+  // If error, display an error message
   if (error) {
     return <h1>Error: {error}</h1>;
   }
 
-  // Render the main content of the app
+  // Else, render Gallery with tour data
   return (
     <>
       {/* Header section with Vite and React logos */}
@@ -58,15 +59,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
 
-      {/* Card section displaying the list of tours */}
+      {/* Render the Gallery component */}
       <div className="card">
         <h2>Tours</h2>
-        <ul>
-          {/* Map through the tours array and render each tour */}
-          {tours.map((tour) => (
-            <li key={tour.id}>{tour.name}</li> // Use tour ID as the key
-          ))}
-        </ul>
+        <Gallery
+          tours={tours} // Pass the tours array
+          onRemove={(id) => setTours(tours.filter((tour) => tour.id !== id))} // Remove tour from state
+        />
       </div>
 
       {/* Footer section with a note */}
