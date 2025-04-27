@@ -1,5 +1,4 @@
 import React from 'react';
-import './TourCard.css'; // Optional: Import CSS for styling
 
 function TourCard({ id, name, info, image, price, onRemove }) {
   return (
