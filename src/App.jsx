@@ -1,44 +1,53 @@
-import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { useState, useEffect } from 'react'; // Import React hooks
+import reactLogo from './assets/react.svg'; // Import React logo
+import viteLogo from '/vite.svg'; // Import Vite logo
+import './App.css'; // Import CSS for styling
 
 function App() {
+  // State to store the list of tours
   const [tours, setTours] = useState([]);
+  // State to manage the loading status
   const [loading, setLoading] = useState(true);
+  // State to store any error messages
   const [error, setError] = useState(null);
 
+  // useEffect to fetch tours data when the component mounts
   useEffect(() => {
     const fetchTours = async () => {
-      setLoading(true);
+      setLoading(true); // Set loading to true before fetching
       try {
+        // Fetch data from the API
         const response = await fetch('https://course-api.com/react-tours-project');
         if (!response.ok) {
-          throw new Error('Failed to fetch tours');
+          throw new Error('Failed to fetch tours'); // Throw error if response is not OK
         }
-        const data = await response.json();
-        setTours(data);
-        setError(null);
+        const data = await response.json(); // Parse JSON data
+        setTours(data); // Update tours state with fetched data
+        setError(null); // Clear any previous errors
       } catch (err) {
-        setError(err.message);
+        setError(err.message); // Set error message if fetch fails
       } finally {
-        setLoading(false);
+        setLoading(false); // Set loading to false after fetch completes
       }
     };
 
-    fetchTours();
-  }, []);
+    fetchTours(); // Call the fetch function
+  }, []); // Empty dependency array ensures this runs only once on mount
 
+  // Display a loading message while data is being fetched
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
+  // Display an error message if there was an issue fetching data
   if (error) {
     return <h1>Error: {error}</h1>;
   }
 
+  // Render the main content of the app
   return (
     <>
+      {/* Header section with Vite and React logos */}
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -48,14 +57,19 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+
+      {/* Card section displaying the list of tours */}
       <div className="card">
         <h2>Tours</h2>
         <ul>
+          {/* Map through the tours array and render each tour */}
           {tours.map((tour) => (
-            <li key={tour.id}>{tour.name}</li>
+            <li key={tour.id}>{tour.name}</li> // Use tour ID as the key
           ))}
         </ul>
       </div>
+
+      {/* Footer section with a note */}
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
@@ -63,4 +77,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; // Export the App component
